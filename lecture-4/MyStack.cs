@@ -10,49 +10,50 @@ namespace Lecture4
 
 		private T[] items = new T[INITIAL_CAPACITY];
 
-		private int count = 0;
 
 		private int capacity = INITIAL_CAPACITY;
+
+		public int Count { get; private set; } = 0;
 
 
 		public void Push(T item)
 		{
-			if (count >= capacity) {
+			if (Count >= capacity) {
 				capacity *= 2;
 				Array.Resize(ref items, capacity);
 			}
 
-			items[count] = item;
-			count += 1;
+			items[Count] = item;
+			Count += 1;
 		}
 
 
 		public T Pop()
 		{
-			if (!(count > 0)) {
+			if (!(Count > 0)) {
 				throw new Exception();
 			}
 
-			T item = items[count - 1];
-			items[count - 1] = default(T);
-			count -= 1;
+			T item = items[Count - 1];
+			items[Count - 1] = default(T);
+			Count -= 1;
 			return item;
 		}
 
 
 		public T Peek()
 		{
-			if (!(count > 0)) {
+			if (!(Count > 0)) {
 				throw new Exception();
 			}
 
-			return items[count - 1];
+			return items[Count - 1];
 		}
 
 
 		public bool IsEmpty()
 		{
-			return !(count > 0);
+			return !(Count > 0);
 		}
 	}
 }

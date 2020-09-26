@@ -24,6 +24,9 @@ namespace Lecture4
 		private MyQueueNode last = null;
 
 
+		public int Count { get; private set; } = 0;
+
+
 		public void Enqueue(T item)
 		{
 			MyQueueNode node = new MyQueueNode(item, null);
@@ -34,6 +37,8 @@ namespace Lecture4
 				last.Next = node;
 			}
 			last = node;
+
+			Count++;
 		}
 
 
@@ -49,6 +54,9 @@ namespace Lecture4
 
 			T item = first.Item;
 			first = first.Next;
+
+			Count--;
+
 			return item;
 		}
 
