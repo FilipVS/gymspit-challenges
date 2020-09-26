@@ -49,6 +49,7 @@
     <Compile Include="MyStack.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="ProgramRedwormik.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
