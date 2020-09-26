@@ -71,6 +71,38 @@ namespace Lecture4
 		}
 
 
+		public void Reverse()
+		{
+			if (first == null)
+				return;
+
+			ReverseRec(null, first);
+		}
+
+		private void ReverseRec(MyQueueNode previousNode, MyQueueNode thisNode)
+		{
+			if (thisNode.Next == null)
+			{
+				first = thisNode;
+
+				if (previousNode == null)
+					last = thisNode;
+				else
+					thisNode.Next = previousNode;
+
+				return;
+			}
+			else
+			{
+				ReverseRec(thisNode, thisNode.Next);
+
+				thisNode.Next = previousNode;
+
+				return;
+			}
+		}
+
+
 		public bool IsEmpty()
 		{
 			return first == null;

@@ -51,6 +51,30 @@ namespace Lecture4
 		}
 
 
+		public void Reverse()
+		{
+			T tmp;
+
+			if (Count == 0)
+				return;
+
+			int smallerIndex = 0;
+			int biggerIndex = Count - 1;
+
+			while(smallerIndex < biggerIndex)
+			{
+				tmp = items[smallerIndex];
+
+				items[smallerIndex] = items[biggerIndex];
+
+				items[biggerIndex] = tmp;
+
+				smallerIndex++;
+				biggerIndex--;
+			}
+		}
+
+
 		public bool IsEmpty()
 		{
 			return !(Count > 0);
