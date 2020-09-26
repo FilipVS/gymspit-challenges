@@ -76,30 +76,62 @@ namespace Lecture4
 			if (first == null)
 				return;
 
-			ReverseRec(null, first);
+			ReverseLoop(null, null, first);
 		}
 
-		private void ReverseRec(MyQueueNode previousNode, MyQueueNode thisNode)
+		private void ReverseLoop(MyQueueNode previousPreviousNode, MyQueueNode previousNode, MyQueueNode thisNode)
 		{
-			if (thisNode.Next == null)
+			bool lastSet = false;
+
+			while(thisNode.Next != null)
 			{
-				first = thisNode;
+				if(previousPreviousNode != null)
+				{
+					previousNode.Next = previousPreviousNode;
 
-				if (previousNode == null)
-					last = thisNode;
-				else
-					thisNode.Next = previousNode;
+					if (!lastSet)
+					{
+						last = previousPreviousNode;
+						previousPreviousNode.Next = null;
 
-				return;
+						lastSet = true;
+					}
+				}
+
+				previousPreviousNode = previousNode;
+				previousNode = thisNode;
+				thisNode = thisNode.Next;
+			}
+
+			first = thisNode;
+
+			if (previousNode == null)
+			{
+				last = thisNode;
+				thisNode.Next = null;
 			}
 			else
 			{
-				ReverseRec(thisNode, thisNode.Next);
-
 				thisNode.Next = previousNode;
 
-				return;
+				if(previousPreviousNode != null)
+				{
+					previousNode.Next = previousPreviousNode;
+
+					if (!lastSet)
+					{
+						last = previousPreviousNode;
+						previousPreviousNode.Next = null;
+					}
+				}
+				else if (!lastSet)
+				{
+					last = previousNode;
+					previousNode.Next = null;
+				}
 			}
+
+
 		}
 
 
