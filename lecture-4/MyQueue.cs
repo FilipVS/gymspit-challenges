@@ -134,6 +134,28 @@ namespace Lecture4
 
 		}
 
+		public void Clear()
+		{
+			if (first == null)
+				return;
+
+			MyQueueNode thisNode = first;
+			MyQueueNode nextNode = thisNode.Next;
+
+			while(thisNode.Next != null)
+			{
+				nextNode = thisNode.Next;
+				thisNode = null;
+			}
+
+			thisNode = null;
+
+			first = null;
+			last = null;
+
+			Count = 0;
+		}
+
 
 		public bool IsEmpty()
 		{

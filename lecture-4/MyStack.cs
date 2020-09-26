@@ -74,6 +74,17 @@ namespace Lecture4
 			}
 		}
 
+		public void Clear()
+		{
+			for (int i = 0; i < Count; i++)
+				items[i] = default;
+
+			Count = 0;
+
+			Array.Resize(ref items, INITIAL_CAPACITY);
+			capacity = INITIAL_CAPACITY;
+		}
+
 
 		public bool IsEmpty()
 		{
