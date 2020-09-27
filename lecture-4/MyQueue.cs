@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 // https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.queue-1?view=netcore-3.1
 
 
 namespace Lecture4
 {
-	class MyQueue<T>
+	class MyQueue<T> : IEnumerable
 	{
 		class MyQueueNode
 		{
@@ -185,6 +187,69 @@ namespace Lecture4
 		public bool IsEmpty()
 		{
 			return first == null;
+		}
+
+		public IEnumerator GetEnumerator()
+		{
+			return new MyQueueEnumerator(first);
+		}
+
+
+		private class MyQueueEnumerator : IEnumerator<T>
+		{
+			public MyQueueEnumerator(MyQueueNode first)
+			{
+				current = first;
+				this.first = first;
+			}
+
+			public object Current => currentItem;
+
+			T IEnumerator<T>.Current => currentItem;
+
+			MyQueueNode current;
+			MyQueueNode first;
+
+			T currentItem;
+
+			bool currentItemSet = false;
+
+			public void Dispose()
+			{
+				currentItem = default;
+			}
+
+			public bool MoveNext()
+			{
+				if (current.Next == null)
+					return false;
+				else
+				{
+					if (!currentItemSet)
+					{
+						currentItem = current.Item;
+
+						currentItemSet = true;
+					}
+					else
+					{
+						current = current.Next;
+
+						currentItem = current.Item;
+					}
+
+					return true;
+				}
+			}
+
+			public void Reset()
+			{
+				current = first;
+
+				currentItem = default;
+
+				currentItemSet = false;
+			}
 		}
 	}
 }

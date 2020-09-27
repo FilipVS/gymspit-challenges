@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 // https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.stack-1?view=netcore-3.1
 
 
 namespace Lecture4
 {
-	class MyStack<T>
+	class MyStack<T> : IEnumerable
 	{
 		private const int INITIAL_CAPACITY = 10;
 
@@ -103,6 +105,60 @@ namespace Lecture4
 		public bool IsEmpty()
 		{
 			return !(Count > 0);
+		}
+
+		public IEnumerator GetEnumerator()
+		{
+			T[] itemsInitialized = new T[Count];
+
+			for (int i = 0; i < itemsInitialized.Length; i++)
+				itemsInitialized[i] = items[i];
+
+			return new MyStackEnumerator(itemsInitialized);
+		}
+
+
+		private class MyStackEnumerator : IEnumerator<T>
+		{
+			public MyStackEnumerator(T[] items)
+			{
+				this.items = items;
+			}
+
+			public T Current { get; private set; }
+
+			object IEnumerator.Current => Current;
+
+
+			T[] items;
+			int index = -1;
+
+
+			public void Dispose()
+			{
+				items = null;
+			}
+
+			public bool MoveNext()
+			{
+				if (index < (items.Length - 1))
+				{
+					index++;
+
+					Current = items[index];
+
+					return true;
+				}
+				else
+					return false;
+			}
+
+			public void Reset()
+			{
+				Current = default;
+
+				index = -1;
+			}
 		}
 	}
 }
