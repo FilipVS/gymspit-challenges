@@ -83,9 +83,9 @@ namespace Lecture4
 		{
 			bool lastSet = false;
 
-			while(thisNode.Next != null)
+			while (thisNode.Next != null)
 			{
-				if(previousPreviousNode != null)
+				if (previousPreviousNode != null)
 				{
 					previousNode.Next = previousPreviousNode;
 
@@ -114,7 +114,7 @@ namespace Lecture4
 			{
 				thisNode.Next = previousNode;
 
-				if(previousPreviousNode != null)
+				if (previousPreviousNode != null)
 				{
 					previousNode.Next = previousPreviousNode;
 
@@ -133,6 +133,7 @@ namespace Lecture4
 
 
 		}
+
 
 		public void Clear()
 		{
@@ -154,6 +155,30 @@ namespace Lecture4
 			last = null;
 
 			Count = 0;
+		}
+
+		public void CopyTo(T[] array, int arrayIndex)
+		{
+			MyQueueNode node = first;
+
+			if (node == null)
+				return;
+
+			if (arrayIndex < 0)
+				throw new ArgumentException("Negative array index");
+			if ((array.Length - arrayIndex) < Count)
+				throw new ArgumentException("There is not enough space in the array after the index");
+
+			while(node.Next != null)
+			{
+				array[arrayIndex] = node.Item;
+
+				arrayIndex++;
+
+				node = node.Next;
+			}
+
+			array[arrayIndex] = node.Item;
 		}
 
 

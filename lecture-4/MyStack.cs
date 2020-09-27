@@ -85,6 +85,20 @@ namespace Lecture4
 			capacity = INITIAL_CAPACITY;
 		}
 
+		public void CopyTo(T[] array, int arrayIndex)
+		{
+			if (arrayIndex < 0)
+				throw new ArgumentException("Negative array index");
+			if ((array.Length - arrayIndex) < Count)
+				throw new ArgumentException("There is not enough space in the array after the index");
+
+			for(int i = 0; i < Count; i++)
+			{
+				array[arrayIndex] = items[i];
+				arrayIndex++;
+			}
+		}
+
 
 		public bool IsEmpty()
 		{
